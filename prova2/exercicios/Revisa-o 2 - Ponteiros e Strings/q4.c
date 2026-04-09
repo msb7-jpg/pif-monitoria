@@ -17,27 +17,48 @@
 // compara_sufixo("imagem.png", ".jpg") → 0.
 
 // n Restrição: proibido usar qualquer função de <string.h>.
-#include <string.h>
+#include <stdbool.h>
+#include <stdio.h>
 
-int strlen(char *string){
-    return sizeof(string) - 1;
-}
-
-int compara_sufixo(char *string, char *sufixo){
-    int tamanho_string = strlen(string);
-    int tamanho_sufixo = strlen(sufixo);
-    int indice = tamanho_string - tamanho_sufixo;
-    string += indice;
-
-    while (string != '\0'){
-        if(string != )
+int strlength(char *string){
+    int result = 0;
+    while (*string != '\0'){
+        result++;
+        string++;
     }
+    return result;
+}
+
+bool compara_sufixo(char *string, char *sufixo){
+    int tamanho_string = strlength(string);
+    int tamanho_sufixo = strlength(sufixo);
+
+    if(tamanho_string < tamanho_sufixo) return false;
     
-    
+    char *left = sufixo;
+    char *right = string + (tamanho_string - tamanho_sufixo);
+
+    while (right < string + tamanho_string){
+
+        if(*left != *right){
+            return false;
+        }
+
+        left++;
+        right++;
+    }
+
+    return true;
 }
 
 
-void main(){
-    char texto[] = "meu";
-    for
+int main(){
+    char texto[] = ".pdf";
+    char sufixo[] = ".pdf";
+
+    bool tem = compara_sufixo(texto, sufixo);
+
+    printf("%s", tem ? "Tem sufixo" : "Não tem");
+    
+    return 0;
 }
